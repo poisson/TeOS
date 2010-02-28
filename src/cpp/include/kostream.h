@@ -6,6 +6,8 @@ extern "C"
 #include <stdint.h>
 }
 
+typedef int_fast32_t  streamsize;
+
 class kostream
 {
 public:
@@ -42,7 +44,7 @@ public:
 	// }
 	// iostate constants
 	// {
-	static const iostate eof		= 0x01;
+	static const iostate eofbit		= 0x01;
 	static const iostate failbit 	= 0x02;
 	static const iostate badbit		= 0x04;
 	static const iostate goodbit	= 0x00;
@@ -70,11 +72,33 @@ public:
 	fmtflags flags ( fmtflags fmtfl ); // set format flags
 	fmtflags setf ( fmtflags fmtfl ); // set some format flags
 	fmtflags setf ( fmtflags fmtfl, fmtflags mask );
-	// TODO: stopped here for the night
+	void unsetf ( fmtflags mask ); // clear the bits that are set in mask
+	streamsize precision () const; // get precision
+	streamsize precision ( streamsize prec ); // set precision
+	streamsize width () const; // get feildwidth
+	streamsize width ( streamsize wide ); // set feildwidth
+	bool good () const;
+	bool eof () const;
+	bool fail () const;
+	bool bad () const;
+	bool operator! () const;
+	operator void* () const;
+	iostate rdstate () const;
+	void setstate ( iostate state);
+	void clear ( iostate state = goodbit );
+	char fill () const;
+	char fill ( char fillch );
+	kostream& copyfmt ( const kostream& rhs );
+	// TODO: Stopping work here for the night... just about to start ostream
 	// }
 protected:
 
 private:
+	fmtflags mflags;
+	streamsize mprec;
+	streamsize mfieldwidth;
+	iostate mstate;
+	char mfill;
 };
 
 #endif

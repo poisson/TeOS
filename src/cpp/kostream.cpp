@@ -1,27 +1,122 @@
 #include "kostream.h"
 
-fmtflags kostream::flags() const
+kostream::fmtflags kostream::flags() const
 {
-	return flags;
+	return mflags;
 }
 
-fmtflags kostream::flags( fmtflags fmtfl )
+kostream::fmtflags kostream::flags( fmtflags fmtfl )
 {
-	fmtflags temp = flags;
-	flags = fmtfl;
+	fmtflags temp = mflags;
+	mflags = fmtfl;
 	return temp;
 }
 
-fmtflags setf ( fmtflags fmtfl ) 
+kostream::fmtflags kostream::setf ( fmtflags fmtfl ) 
 {
-	fmtflags temp = flags;
-	flags |= fmtfl;
+	fmtflags temp = mflags;
+	mflags |= fmtfl;
 	return temp;
 }
 
-fmtflags setf ( fmtflags fmtfl, fmtflags mask )
+kostream::fmtflags kostream::setf ( fmtflags fmtfl, fmtflags mask )
 {
-	fmtflags temp = flags;
-	flags = (fmtfl & mask) | (flags & ~mask);
+	fmtflags temp = mflags;
+	mflags = (fmtfl & mask) | (mflags & ~mask);
 	return temp;
+}
+
+void kostream::unsetf ( kostream::fmtflags mask )
+{
+	mflags &= (~mask);
+}
+
+streamsize kostream::precision () const
+{
+	return mprec; 
+}
+
+streamsize kostream::precision ( streamsize prec )
+{
+	streamsize temp = mprec;
+	mprec = prec;
+	return temp;
+}
+
+streamsize kostream::width () const
+{
+	return mfieldwidth;
+}
+
+streamsize kostream::width ( streamsize wide )
+{
+	streamsize temp = mfieldwidth;
+	mfieldwidth = wide;
+	return temp;
+}
+
+bool kostream::good () const
+{
+	return (mstate == goodbit);
+}
+
+bool kostream::eof () const
+{
+	return (mstate & eofbit) != 0;
+}
+
+bool kostream::fail () const
+{
+	return (mstate & (failbit | badbit)) != 0;
+}
+
+bool kostream::bad () const
+{
+	return (mstate & badbit) != 0;
+}
+
+bool kostream::operator! () const
+{
+	return fail();
+}
+
+kostream::operator void* () const
+{
+	if (fail()) return (void*)0;
+	return (void*)this;
+}
+
+kostream::iostate kostream::rdstate () const
+{
+	return mstate;
+}
+
+void kostream::setstate ( iostate state )
+{
+	mstate |= state;
+}
+
+void kostream::clear ( iostate state )
+{
+	mstate = state;
+}
+
+char kostream::fill () const
+{
+	return mfill;
+}
+char kostream::fill ( char fillch )
+{
+	char temp = mfill;
+	mfill = fillch;
+	return temp;
+}
+
+kostream& kostream::copyfmt ( const kostream& rhs )
+{
+	mflags = rhs.mflags;
+	mprec = rhs.mprec;
+	mfieldwidth = mfieldwidth;
+	mfill = mfill;
+	return *this;
 }
