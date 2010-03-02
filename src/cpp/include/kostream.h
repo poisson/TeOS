@@ -89,7 +89,29 @@ public:
 	char fill () const;
 	char fill ( char fillch );
 	kostream& copyfmt ( const kostream& rhs );
-	// TODO: Stopping work here for the night... just about to start ostream
+	kostream& put ( char c );
+	kostream& write ( const char* s, streamsize n );
+	virtual kostream& flush () = 0;
+	// Formatted output functions go here
+	// {
+	kostream& operator<< (bool val);
+	kostream& operator<< (short val);
+	kostream& operator<< (unsigned short val);
+	kostream& operator<< (int val);
+	kostream& operator<< (unsigned int val);
+	kostream& operator<< (long val);
+	kostream& operator<< (unsigned long val);
+	kostream& operator<< (float val);
+	kostream& operator<< (double val);
+	kostream& operator<< (long double val);
+	kostream& operator<< (const void* val);
+	friend kostream& operator<< (kostream& out, char c);
+	friend kostream& operator<< (kostream& out, signed char c);
+	friend kostream& operator<< (kostream& out, unsigned char c);
+	friend kostream& operator<< (kostream& out, const char* s);
+	friend kostream& operator<< (kostream& out, const signed char* s);
+	friend kostream& operator<< (kostream& out, const unsigned char* s);
+	// }
 	// }
 protected:
 
@@ -99,6 +121,9 @@ private:
 	streamsize mfieldwidth;
 	iostate mstate;
 	char mfill;
+	static const int_fast8_t buffsize = 32;
+	char[buffsize] mbuff;
+	int_fast8_t mput;
 };
 
 #endif

@@ -120,3 +120,35 @@ kostream& kostream::copyfmt ( const kostream& rhs )
 	mfill = mfill;
 	return *this;
 }
+
+kostream& kostream::put ( char c )
+{
+	mbuff[mput] = c;
+	mput++;
+	if (mput >= buffsize)
+		this->flush(); // not sure if necessary
+	return *this;
+}
+
+kostream& kostream::write ( const char* s, streamsize n )
+{
+	while (buffsize - mput < n)
+	{
+		memcpy((void*)(mbuff+mput),(void*)s,buffsize);
+		n -= buffsize;
+		s += buffsize;
+		mput = 0;
+		this->flush(); // buffer is full now
+	}
+	if (n != 0)
+	{
+		memcpy((void*)(mbuff+mput),(void*)s, n);
+		mput = n;
+	}
+	return *this;
+}
+// TODO: formatted output operators
+kostream& operator<< (bool val)
+{
+
+}
