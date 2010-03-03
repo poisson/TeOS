@@ -5,6 +5,7 @@ extern "C"
 {
 #include <stdint.h>
 }
+#include "memory.h"
 
 typedef int_fast32_t  streamsize;
 
@@ -28,18 +29,19 @@ public:
 	static const fmtflags showpoint		= 0x0004;
 	static const fmtflags showpos 		= 0x0008;
 	static const fmtflags skipws		= 0x0010;
-	static const fmtflags unitbut		= 0x0020;
+	static const fmtflags unitbuf		= 0x0020;
 	static const fmtflags uppercase		= 0x0040;
 	static const fmtflags dec			= 0x0080;
 	static const fmtflags hex			= 0x0100;
 	static const fmtflags oct			= 0x0200;
-	static const fmtflags fixed			= 0x0400;
-	static const fmtflags scientific	= 0x0800;
-	static const fmtflags internal		= 0x1000;
-	static const fmtflags left 			= 0x2000;
-	static const fmtflags right			= 0x4000;
+	static const fmtflags bin			= 0x0400;
+	static const fmtflags fixed			= 0x0800;
+	static const fmtflags scientific	= 0x1000;
+	static const fmtflags internal		= 0x2000;
+	static const fmtflags left 			= 0x4000;
+	static const fmtflags right			= 0x8000;
 	static const fmtflags adjustfield	= left | right | internal;
-	static const fmtflags basefield		= dec | oct | hex;
+	static const fmtflags basefield		= dec | oct | hex | bin;
 	static const fmtflags floatfield	= scientific | fixed;
 	// }
 	// iostate constants
@@ -122,7 +124,7 @@ private:
 	iostate mstate;
 	char mfill;
 	static const int_fast8_t buffsize = 32;
-	char[buffsize] mbuff;
+	char mbuff[buffsize];
 	int_fast8_t mput;
 };
 
