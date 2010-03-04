@@ -1,11 +1,9 @@
 #ifndef __TEOS_KOSTREAM_H__
 #define __TEOS_KOSTREAM_H__
 
-extern "C"
-{
-#include <stdint.h>
-}
 #include "memory.h"
+#include "string.h"
+#include "types.h"
 
 typedef int_fast32_t  streamsize;
 

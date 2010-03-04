@@ -51,4 +51,4 @@ clean:
 	-@$(RM) $(wildcard $(OBJFILES) $(32OBJFILES) $(DEPFILES) kernel.bin loader.bin)
 
 todolist:
-	-@for file in $(ALLFILES); do fgrep -H -e TODO -e FIXME $$file; done; true
+	-@for file in $(ALLFILES); do fgrep -H -e TODO -e FIXME -e ENHANCE $$file; done; true

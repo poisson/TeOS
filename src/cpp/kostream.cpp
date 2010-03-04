@@ -169,7 +169,7 @@ kostream& kostream::operator<< (unsigned long val)
 {
 	int digit = 1;
 	int base = 10;
-	char * cbase = "";
+	const char * cbase = "";
 	bool sb = (bool)(mflags & showbase); 
 	if (mflags & dec) 
 	{ 
@@ -251,4 +251,31 @@ kostream& kostream::operator<< (unsigned int val)
 	return (*this) << (unsigned long)val;
 }
 
-// TODO: Floating point, void*, characters, character pointers
+kostream& kostream::operator<< (long double val)
+{
+	val = 0;
+	return (*this) << "\nLong double output not supported!\n";
+}
+
+kostream& kostream::operator<< (double val)
+{
+	val = 0;
+	return (*this) << "Double output not implemented!";
+}
+
+kostream& kostream::operator<< (float val)
+{
+	val = 0;
+	return (*this) << "Float output not implemented!";
+}
+
+kostream& operator<< (kostream& out, const char* s)
+{
+	out.write(s, strlen(s));
+	return out;
+}
+
+// FIXME: Floating point.
+
+// TODO: void*, characters, character pointers
+
