@@ -114,6 +114,8 @@ public:
 	// }
 	// }
 protected:
+	static const int_fast8_t buffsize = 32;
+	char mbuff[buffsize];
 
 private:
 	fmtflags mflags;
@@ -121,8 +123,6 @@ private:
 	streamsize mfieldwidth;
 	iostate mstate;
 	char mfill;
-	static const int_fast8_t buffsize = 32;
-	char mbuff[buffsize];
 	int_fast8_t mput;
 };
 

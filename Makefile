@@ -24,7 +24,7 @@ ALLFILES := $(SRCFILES) $(HDRFILES) $(AUXFILES)
 
 CFLAGS := -O3 -Wall -Wextra -Werror -nostdlib -nostartfiles -nodefaultlibs -std=c99 -mcmodel=large -ffreestanding
 CPPFLAGS := -O3 -Wall -Wextra -Werror -ffreestanding -m64 -nostdlib -nostartfiles -nodefaultlibs -fno-exceptions -mcmodel=large -fno-rtti
-INCLUDES := -I./src/c/include -I./src/cpp/include -I/usr/include
+INCLUDES := -I./src/c/include -I./src/cpp/include 
 
 all: boot.img
 

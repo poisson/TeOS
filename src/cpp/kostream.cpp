@@ -277,5 +277,32 @@ kostream& operator<< (kostream& out, const char* s)
 
 // FIXME: Floating point.
 
-// TODO: void*, characters, character pointers
+kostream& operator<< (kostream& out, const void* val) // ENHANCE: make sure what do
+{
+	return out << (uintptr_t)val;
+}
 
+kostream& operator<< (kostream& out, char c)
+{
+	return out.put(c);
+}
+
+kostream& operator<< (kostream& out, signed char c)
+{
+	return out << (char)c;
+}
+
+kostream& operator<< (kostream& out, unsigned char c)
+{
+	return out << (char)c;
+}
+
+kostream& operator<< (kostream& out, const signed char * s)
+{
+	return out << (const char*)s;
+}
+
+kostream& operator<< (kostream& out, const unsigned char * s)
+{
+	return out << (const char*)s;
+}

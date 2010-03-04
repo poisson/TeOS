@@ -23,16 +23,11 @@ void kmain(uint64_t* memmap)
 
     videoram << boot_loader_name;
 
-    videoram << 100;
-    videoram << " hours of pain...\n";
-    videoram.setintbase(2);
-    videoram << 100 << " hours of binary pain... \n";
-    videoram.setintbase(16);
-    videoram << 100 << " hours of hexadecimal pain... \n";
-    videoram.setintbase(8);
-    videoram << 100 << " hours of octal pain... \n";
-    videoram.setintbase(10);
-
+	videoram << "A char is assumed to be 8 bits.\n";
+	videoram << "A short is " << (sizeof(short)*8) << " bits.\n";
+	videoram << "An int is " << (sizeof(int)*8) << " bits.\n";
+	videoram << "A long is " << (sizeof(long)*8) << " bits.\n";
+	videoram << "A long long is " << (sizeof(long long)*8) << " bits.";
     // Parse memory map to get a stack of usable page frames
 
 }
