@@ -17,17 +17,11 @@ void kmain(uint64_t* memmap)
     /* Print a letter to screen to see everything is working: */
     //videoram[0] = ((char*)mbd->boot_loader_name)[0]; /* character 'A' */
 
-    const char* boot_loader_name = "TeOS\n";
+    //const char* boot_loader_name = "TeOS\n";
 
     vterm videoram((unsigned char *)0xFFFF8000000b8000, 0x01);
 
-    videoram << boot_loader_name;
+	videoram << 256;
 
-	videoram << "A char is assumed to be 8 bits.\n";
-	videoram << "A short is " << (sizeof(short)*8) << " bits.\n";
-	videoram << "An int is " << (sizeof(int)*8) << " bits.\n";
-	videoram << "A long is " << (sizeof(long)*8) << " bits.\n";
-	videoram << "A long long is " << (sizeof(long long)*8) << " bits.";
     // Parse memory map to get a stack of usable page frames
-
 }

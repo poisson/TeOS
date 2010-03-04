@@ -127,7 +127,10 @@ kostream& kostream::put ( char c )
 	mbuff[mput] = c;
 	mput++;
 	if (mput >= buffsize)
+	{
 		this->flush(); // not sure if necessary
+		mput = 0;
+	}
 	return *this;
 }
 
@@ -135,7 +138,7 @@ kostream& kostream::write ( const char* s, streamsize n )
 {
 	while (buffsize - mput < n)
 	{
-		memcpy((void*)(mbuff+mput),(void*)s,buffsize);
+		memcpy((void*)(mbuff+mput),(void*)s,buffsize-mput);
 		n -= buffsize;
 		s += buffsize;
 		mput = 0;
@@ -144,8 +147,8 @@ kostream& kostream::write ( const char* s, streamsize n )
 	if (n != 0)
 	{
 		memcpy((void*)(mbuff+mput),(void*)s, n);
-		mput = n;
-		if (mflags & unitbuf) this->flush();
+		mput += n;
+		if (mflags & unitbuf) { this->flush(); mput = 0; }
 	}
 	return *this;
 }
@@ -306,3 +309,5 @@ kostream& operator<< (kostream& out, const unsigned char * s)
 {
 	return out << (const char*)s;
 }
+
+kostream::kostream() : mput(0), mstate(goodbit), mfill(' ') {};

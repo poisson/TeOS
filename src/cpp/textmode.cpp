@@ -2,7 +2,7 @@
 #include "memory.h"
 
 vterm::vterm(unsigned char * const address, unsigned char modifier, unsigned int base,
-	fmtflags flags, unsigned int width, unsigned int height) : address(address), modifier(modifier), width(width), height(height)
+	fmtflags flags, unsigned int width, unsigned int height) : kostream(), address(address), modifier(modifier), width(width), height(height) 
 {
 	if (base == 10) flags |= dec;
 	else if (base == 16) flags |= hex;
@@ -79,7 +79,13 @@ void vterm::printchar(char c)
 
 kostream& vterm::flush()
 {
-	for (int i = 0; i < buffsize; i++)
+	for (int i = 0; i < mput; i++)  
 		printchar(mbuff[i]);
+	mput = 0;
 	return (*this);
+}
+
+vterm::~vterm()
+{
+	this->flush();
 }

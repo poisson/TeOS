@@ -13,6 +13,7 @@ class vterm : public kostream
 public:
 	vterm(unsigned char* const address, unsigned char modifier, unsigned int base = 10, fmtflags flags = 0, unsigned int width = 80, unsigned int height = 25);
 	void scroll(int lines);
+	~vterm();
 protected:
 
 private:

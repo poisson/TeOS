@@ -68,6 +68,7 @@ public:
 	
 	// Functions go here
 	// {
+	// ENHANCE: 
 	fmtflags flags () const; // get format flags
 	fmtflags flags ( fmtflags fmtfl ); // set format flags
 	fmtflags setf ( fmtflags fmtfl ); // set some format flags
@@ -111,11 +112,13 @@ public:
 	friend kostream& operator<< (kostream& out, const char* s);
 	friend kostream& operator<< (kostream& out, const signed char* s);
 	friend kostream& operator<< (kostream& out, const unsigned char* s);
+	kostream();
 	// }
 	// }
 protected:
 	static const int_fast8_t buffsize = 32;
 	char mbuff[buffsize];
+	int_fast8_t mput;
 
 private:
 	fmtflags mflags;
@@ -123,7 +126,6 @@ private:
 	streamsize mfieldwidth;
 	iostate mstate;
 	char mfill;
-	int_fast8_t mput;
 };
 
 #endif
