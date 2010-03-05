@@ -136,20 +136,22 @@ kostream& kostream::put ( char c )
 
 kostream& kostream::write ( const char* s, streamsize n )
 {
-	while (buffsize - mput < n)
-	{
-		memcpy((void*)(mbuff+mput),(void*)s,buffsize-mput);
-		n -= buffsize;
-		s += buffsize;
-		mput = 0;
-		this->flush(); // buffer is full now
-	}
-	if (n != 0)
-	{
-		memcpy((void*)(mbuff+mput),(void*)s, n);
-		mput += n;
-		if (mflags & unitbuf) { this->flush(); mput = 0; }
-	}
+//	while (buffsize - mput < n)
+//	{
+//		memcpy((void*)(mbuff+mput),(void*)s,buffsize-mput);
+//		this->flush(); // buffer is full now
+//		n -= buffsize;
+//		s += buffsize;
+//		mput = 0;
+//	}
+//	if (n != 0)
+//	{
+//		memcpy((void*)(mbuff+mput),(void*)s, n);
+//		mput += n;
+//		if (mflags & unitbuf) { this->flush(); mput = 0; }
+//	}
+	for (int i = 0; i < n; i++)
+		put(s[i]);
 	return *this;
 }
 
@@ -218,7 +220,11 @@ kostream& kostream::operator<< (unsigned long val)
 	}
 	for (uint_fast16_t j = 0; j < sizeof(unsigned long)*8; j++)
 	{
-		if (string[j] != '\0') write(string+j, sizeof(unsigned long)*8-j);
+		if (string[j] != '\0') 
+		{
+			write(string+j, sizeof(unsigned long)*8-j);
+			break;
+		}
 	}
 	return (*this);	
 }

@@ -21,7 +21,14 @@ void kmain(uint64_t* memmap)
 
     vterm videoram((unsigned char *)0xFFFF8000000b8000, 0x01);
 
-	videoram << 256;
-
+	for (int i = 0; i < 33; i++)
+		videoram << "F";
+	//videoram << boot_loader_name;
+	//videoram << "A char is assumed to be 8 bits.\n";
+	//videoram << "The size of short is " << sizeof(short)*8 << " bits.\n";
+	//videoram << "The size of int is " << sizeof(int)*8 << " bits.\n";
+	//videoram << "The size of long is " << sizeof(long)*8 << " bits.\n";
+	//videoram << "The size of long long is "<< sizeof(long long)*8 << " bits\n";
+	
     // Parse memory map to get a stack of usable page frames
 }
